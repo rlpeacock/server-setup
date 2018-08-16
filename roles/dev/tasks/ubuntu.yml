@@ -1,0 +1,17 @@
+- name: Install apt packages
+  apt:
+      name: "{{ packages }}"
+  become: true
+  vars:
+      packages:
+        - git
+        - vim
+        - tmux
+        - lsof
+        - htop
+        - silversearcher-ag
+        - git
+        - curl
+        - docker
+        - nginx
+

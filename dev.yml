@@ -1,0 +1,4 @@
+- hosts: centosdev, ubuntudev
+  tasks:
+      - include_role:
+            name: dev

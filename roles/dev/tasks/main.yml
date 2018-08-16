@@ -1,0 +1,22 @@
+- name: ubuntu package import
+  import_tasks: ubuntu.yml
+  when: ansible_pkg_mgr == 'apt'
+
+- name: centos package import
+  import_tasks: centos.yml
+  when: ansible_pkg_mgr == 'yum'
+
+- name: add docker group
+  group:
+    name: docker
+    state: present
+
+- name: add user to docker group
+  user: name={{ ansible_user }} groups=docker append=yes
+
+- name: start docker
+  systemd: state=started name=docker
+
+- name: vim setup
+  import_tasks: vim.yml
+  when: ansible_pkg_mgr == 'apt'

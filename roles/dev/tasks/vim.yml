@@ -1,0 +1,30 @@
+- name: .vim dir
+  file:
+      path: "{{ ansible_env.HOME }}/.vim"
+      state: directory
+
+- name: .vim/autoload
+  file:
+      path: "{{ ansible_env.HOME }}/.vim/autoload"
+      state: directory
+
+- name: .vim/bundle
+  file:
+      path: "{{ ansible_env.HOME }}/.vim/bundle"
+      state: directory
+
+- name: download pathogen
+  git:
+      repo: https://github.com/tpope/vim-pathogen
+      dest: /tmp/vim-pathogen
+
+- name: copy pathogen into place
+  copy:
+      src: /tmp/vim-pathogen/autoload/pathogen.vim
+      dest: "{{ ansible_env.HOME }}/.vim/autoload"
+      remote_src: true
+      
+- name: add .vimrc
+  copy:
+      src: "_vimrc"
+      dest: "{{ ansible_env.HOME }}/.vimrc"

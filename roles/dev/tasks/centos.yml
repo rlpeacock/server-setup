@@ -1,0 +1,19 @@
+- name: Install yum packages
+  yum:
+    name: "{{ packages }}"
+    state: latest
+  become: true
+  vars:
+      packages:
+          - vim
+          - tmux
+          - lsof
+          - epel-release
+          - htop
+          - ack
+          - nginx
+          - git
+          - curl
+          - bind-utils
+          - docker
+          - certbot-nginx

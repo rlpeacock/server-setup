@@ -19,4 +19,3 @@
 
 - name: vim setup
   import_tasks: vim.yml
-  when: ansible_pkg_mgr == 'apt'

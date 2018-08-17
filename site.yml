@@ -1,0 +1,4 @@
+- hosts: centosdev
+  tasks:
+      - include_role:
+            name: site

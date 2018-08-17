@@ -1,0 +1,48 @@
+- name: Install nginx packages
+  yum:
+    name: "{{ packages }}"
+    state: latest
+  become: true
+  vars:
+      packages:
+          - lsof
+          - epel-release
+          - htop
+          - ack
+          - nginx
+          - git
+          - curl
+          - bind-utils
+          - certbot-nginx
+  when: ansible_pkg_mgr == 'yum'
+
+- name: create site dir
+  file:
+      path: /site
+      state: directory
+      owner: centos
+      group: nginx
+      mode: 0755
+  become: true
+
+- name: get rp source
+  git:
+      repo: 'https://github.com/rlpeacock/rp.git'
+      dest: /site
+      force: yes
+
+- name: tell SELinux it's ok to serve these files
+  command: chcon -Rt httpd_sys_content_t /site
+  become: true
+
+- name: install nginx config
+  copy:
+      src: "nginx_site.conf"
+      dest: "/etc/nginx/conf.d/default.conf"
+  become: true
+
+- name: reload nginx config
+  systemd:
+      name: nginx
+      state: reloaded
+  become: true

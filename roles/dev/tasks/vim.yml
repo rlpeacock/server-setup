@@ -24,6 +24,21 @@
       dest: "{{ ansible_env.HOME }}/.vim/autoload"
       remote_src: true
       
+- name: install go support
+  git:
+      repo: 'https://github.com/fatih/vim-go.git'
+      dest: "{{ ansible_env.HOME }}/.vim/bundle/vim-go"
+
+- name: get airline
+  git:
+      repo: 'https://github.com/vim-airline/vim-airline.git'
+      dest: "{{ ansible_env.HOME }}/.vim/bundle/vim-airline"
+
+- name: get multi-cursor
+  git:
+      repo: 'https://github.com/terryma/vim-multiple-cursors.git'
+      dest: "{{ ansible_env.HOME }}/.vim/bundle/vim-multiple-cursors"
+
 - name: add .vimrc
   copy:
       src: "_vimrc"
